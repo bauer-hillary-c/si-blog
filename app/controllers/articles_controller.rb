@@ -1,10 +1,14 @@
 class ArticlesController < ApplicationController
+  before_action :set_article, only: [:show, :edit, :update, :destroy]
+  before_action :check_user, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:edit, :update, :new, :create]
 
   def new
   end
 
   def create
-    @article = Article.new(params.require(:article).permit(:title, :text))
+    @article = Article.new(article_params)
+    @article.user = current_user
 
     if @article.save
       redirect_to @article
@@ -14,7 +18,6 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    @article = Article.find(params[:id])
   end
 
   def index
@@ -22,16 +25,32 @@ class ArticlesController < ApplicationController
   end
 
   def edit
-    @article = Article.find(params[:id])
   end
 
   def update
-    @article = Article.find(params[:id])
-
-    if @article.update(params.require(:article).permit(:title, :text))
+    if @article.update(article_params)
       redirect_to @article
     else
       render 'edit'
     end
+  end
+
+  def destroy
+    @article.destroy
+    render 'index'
+  end
+
+  private
+
+  def article_params
+    params.require(:article).permit(:title, :text)
+  end
+
+  def set_article
+    @article = Article.find(params[:id])
+  end
+
+  def check_user
+    redirect_to(articles_url, notice: 'This ain\'t yours') if @article.user != current_user
   end
 end
