@@ -1,7 +1,7 @@
 class ArticlesController < ApplicationController
-  before_action :set_article, only: [:show, :edit, :update, :destroy]
+  before_action :set_article, only: [:show, :edit, :update, :destroy, :star]
   before_action :check_user, only: [:edit, :update, :destroy]
-  before_action :authenticate_user!, only: [:edit, :update, :new, :create]
+  before_action :authenticate_user!, only: [:edit, :update, :new, :create, :star]
 
   def new
   end
@@ -38,6 +38,10 @@ class ArticlesController < ApplicationController
   def destroy
     @article.destroy
     render 'index'
+  end
+
+  def star
+    @article.likes << Like.new(article: @article, user: current_user) # could also just be Like.create(article: @article, user: current_user)
   end
 
   private
