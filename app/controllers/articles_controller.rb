@@ -1,7 +1,7 @@
 class ArticlesController < ApplicationController
-  before_action :set_article, only: [:show, :edit, :update, :destroy, :star]
+  before_action :set_article, only: [:show, :edit, :update, :destroy, :like]
   before_action :check_user, only: [:edit, :update, :destroy]
-  before_action :authenticate_user!, only: [:edit, :update, :new, :create, :star]
+  before_action :authenticate_user!, only: [:edit, :update, :new, :create, :like]
 
   def new
   end
@@ -40,8 +40,14 @@ class ArticlesController < ApplicationController
     render 'index'
   end
 
-  def star
-    @article.likes << Like.new(article: @article, user: current_user) # could also just be Like.create(article: @article, user: current_user)
+  def like
+    if params[:type] == "like"
+      @article.likes << Like.new(article: @article, user: current_user) # could also just be Like.create(article: @article, user: current_user)
+      redirect_to @article, notice: "Liked!"
+    else
+      @article.likers.delete(current_user)
+      redirect_to @article, notice: "Unliked :c"
+    end
   end
 
   private

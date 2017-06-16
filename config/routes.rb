@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get 'welcome' => 'welcome#index'
 
   resources :articles do
-    put :star, on: :member
+    put :like, on: :member
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
