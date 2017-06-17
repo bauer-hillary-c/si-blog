@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSepc.feature "AddNewArticles", type: :feature do
+RSpec.feature "AddNewArticles", type: :feature do
   it "should require the user to log in before adding an article" do
     password = "123456789"
     user = create(:user, password: password, password_confirmation: password)
