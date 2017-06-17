@@ -15,5 +15,15 @@ describe Article, type: :model do
       article = Article.new(text: "Article body", user: @user)
       expect{article.save!}.to raise_error(ActiveRecord::RecordInvalid)
     end
+
+    it "should not save without text" do
+      article = Article.new(title: "Article Title", user: @user)
+      expect{article.save!}.to raise_error(ActiveRecord::RecordInvalid)
+    end
+
+    it "should not save without a user" do
+      article = Article.new(title: "Article Title", text: "Article body")
+      expect{article.save!}.to raise_error(ActiveRecord::RecordInvalid)
+    end
   end
 end
