@@ -26,6 +26,7 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'spring-commands-rspec'
   gem 'vcr'
+  gem 'rails-controller-testing'
 end
 
 group :test do

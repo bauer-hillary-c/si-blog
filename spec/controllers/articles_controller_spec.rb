@@ -22,8 +22,9 @@ describe ArticlesController, type: :controller do
       login_with create(:user)
     end
 
-    it "should let a logged in user write a post"
-    get :new
-    expect(response).to render_template(:new)
+    it "should let a logged in user write a post" do
+      get :new
+      expect(response).to render_template(:new)
+    end
   end
 end
