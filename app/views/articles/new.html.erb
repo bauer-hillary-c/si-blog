@@ -1,4 +1,4 @@
-<%= form_for :article, url: articles_path do |f| %>
+<%= form_for :article, url: articles_path, html: { id: 'new_article' } do |f| %>
   <p>
     <%= f.label :title %>
     <%= f.text_field :title %>
