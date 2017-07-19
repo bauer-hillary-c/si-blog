@@ -6,7 +6,7 @@ class CreateCategories < ActiveRecord::Migration[5.0]
       t.timestamps
     end
 
-    create_table :categories_articles do |t|
+    create_table :articles_categories do |t|
       t.references :categories
       t.references :articles
     end

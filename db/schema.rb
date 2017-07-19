@@ -21,17 +21,17 @@ ActiveRecord::Schema.define(version: 20170719002749) do
     t.index ["user_id"], name: "index_articles_on_user_id"
   end
 
+  create_table "articles_categories", force: :cascade do |t|
+    t.integer "categories_id"
+    t.integer "articles_id"
+    t.index ["articles_id"], name: "index_articles_categories_on_articles_id"
+    t.index ["categories_id"], name: "index_articles_categories_on_categories_id"
+  end
+
   create_table "categories", force: :cascade do |t|
     t.string   "category"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "categories_articles", force: :cascade do |t|
-    t.integer "categories_id"
-    t.integer "articles_id"
-    t.index ["articles_id"], name: "index_categories_articles_on_articles_id"
-    t.index ["categories_id"], name: "index_categories_articles_on_categories_id"
   end
 
   create_table "likes", force: :cascade do |t|
