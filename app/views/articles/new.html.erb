@@ -10,6 +10,12 @@
   </p>
 
   <p>
+    <%= f.label :categories %>
+    <%= f.collection_select(:categories, Category.all,
+                                           { multiple: true, size: 5 }) %>
+  </p>
+
+  <p>
     <%= f.submit %>
   </p>
 <% end %>

@@ -12,6 +12,13 @@
   </p>
 
   <p>
+    <%= f.label :categories %>
+    <%= f.select(:categories, Category.all.collect {|p| [ p.name, p.id ] }, 
+                                           { :prompt => "Please select"}, 
+                                           { :multiple => true, :size => 5 }) %>
+  </p>
+
+  <p>
     <%= f.submit %>
   </p>
 <% end %>
